@@ -320,7 +320,6 @@
     <Content Include="Scripts\spa\directives\availableMovie.directive.js" />
     <Content Include="Scripts\spa\modules\common.core.js" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="App_Data\Building Single Page Applications using Web API and angularJS.pdf" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />

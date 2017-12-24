@@ -15,10 +15,8 @@ namespace HomeCinema.Web
     {
         void Application_Start(object sender, EventArgs e)
         {
-            var config = GlobalConfiguration.Configuration;
-
             AreaRegistration.RegisterAllAreas();
-            WebApiConfig.Register(config);
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
             Bootstrapper.Run();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             GlobalConfiguration.Configuration.EnsureInitialized();
