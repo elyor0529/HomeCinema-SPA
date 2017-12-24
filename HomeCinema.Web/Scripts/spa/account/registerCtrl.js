@@ -1,12 +1,12 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('registerCtrl', registerCtrl);
+    app.controller("registerCtrl", registerCtrl);
 
-    registerCtrl.$inject = ['$scope', 'membershipService', 'notificationService', '$rootScope', '$location'];
+    registerCtrl.$inject = ["$scope", "membershipService", "notificationService", "$rootScope", "$location"];
 
     function registerCtrl($scope, membershipService, notificationService, $rootScope, $location) {
-        $scope.pageClass = 'page-login';
+        $scope.pageClass = "page-login";
         $scope.register = register;
         $scope.user = {};
 
@@ -17,14 +17,14 @@
         function registerCompleted(result) {
             if (result.data.success) {
                 membershipService.saveCredentials($scope.user);
-                notificationService.displaySuccess('Hello ' + $scope.user.username);
+                notificationService.displaySuccess("Hello " + $scope.user.username);
                 $scope.userData.displayUserInfo();
-                $location.path('/');
+                $location.path("/");
             }
             else {
-                notificationService.displayError('Registration failed. Try again.');
+                notificationService.displayError("Registration failed. Try again.");
             }
         }
     }
 
-})(angular.module('common.core'));
+})(angular.module("common.core"));

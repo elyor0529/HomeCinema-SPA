@@ -1,13 +1,13 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('customersCtrl', customersCtrl);
+    app.controller("customersCtrl", customersCtrl);
 
-    customersCtrl.$inject = ['$scope','$modal', 'apiService', 'notificationService'];
+    customersCtrl.$inject = ["$scope","$modal", "apiService", "notificationService"];
 
     function customersCtrl($scope, $modal, apiService, notificationService) {
 
-        $scope.pageClass = 'page-customers';
+        $scope.pageClass = "page-customers";
         $scope.loadingCustomers = true;
         $scope.page = 0;
         $scope.pagesCount = 0;
@@ -33,7 +33,7 @@
                 }
             };
 
-            apiService.get('/api/customers/search/', config,
+            apiService.get("/api/customers/search/", config,
             customersLoadCompleted,
             customersLoadFailed);
         }
@@ -41,8 +41,8 @@
         function openEditDialog(customer) {
             $scope.EditedCustomer = customer;
             $modal.open({
-                templateUrl: 'scripts/spa/customers/editCustomerModal.html',
-                controller: 'customerEditCtrl',
+                templateUrl: "scripts/spa/customers/editCustomerModal.html",
+                controller: "customerEditCtrl",
                 scope: $scope
             }).result.then(function ($scope) {
                 clearSearch();
@@ -59,7 +59,7 @@
             $scope.loadingCustomers = false;
 
             if ($scope.filterCustomers && $scope.filterCustomers.length) {
-                notificationService.displayInfo(result.data.Items.length + ' customers found');
+                notificationService.displayInfo(result.data.Items.length + " customers found");
             }
 
         }
@@ -69,11 +69,11 @@
         }
 
         function clearSearch() {
-            $scope.filterCustomers = '';
+            $scope.filterCustomers = "";
             search();
         }
 
         $scope.search();
     }
 
-})(angular.module('homeCinema'));
+})(angular.module("homeCinema"));

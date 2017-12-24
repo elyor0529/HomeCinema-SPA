@@ -1,5 +1,4 @@
 ﻿using HomeCinema.Data.Repositories;
-using HomeCinema.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;

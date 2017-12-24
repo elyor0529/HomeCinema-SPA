@@ -1,14 +1,14 @@
 ﻿(function(app) {
-    'use strict';
+    "use strict";
 
-    app.directive('topBar', topBar);
+    app.directive("topBar", topBar);
 
     function topBar() {
         return {
-            restrict: 'E',
+            restrict: "E",
             replace: true,
-            templateUrl: '/scripts/spa/layout/topBar.html'
+            templateUrl: "/scripts/spa/layout/topBar.html"
         }
     }
 
-})(angular.module('common.ui'));
+})(angular.module("common.ui"));

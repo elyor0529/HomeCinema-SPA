@@ -1,12 +1,8 @@
-﻿using HomeCinema.Entities;
+﻿using System.Collections.Generic;
+using HomeCinema.Entities;
 using HomeCinema.Services.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HomeCinema.Services
+namespace HomeCinema.Services.Abstract
 {
     public interface IMembershipService
     {

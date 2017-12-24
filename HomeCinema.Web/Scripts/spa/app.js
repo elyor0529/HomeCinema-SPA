@@ -1,11 +1,11 @@
 ﻿(function () {
-    'use strict';
+    "use strict";
 
-    angular.module('homeCinema', ['common.core', 'common.ui'])
+    angular.module("homeCinema", ["common.core", "common.ui"])
         .config(config)
         .run(run);
 
-    config.$inject = ['$routeProvider'];
+    config.$inject = ["$routeProvider"];
     function config($routeProvider) {
         $routeProvider
             .when("/", {
@@ -53,41 +53,41 @@
             }).otherwise({ redirectTo: "/" });
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
+    run.$inject = ["$rootScope", "$location", "$cookieStore", "$http"];
 
     function run($rootScope, $location, $cookieStore, $http) {
         // handle page refreshes
-        $rootScope.repository = $cookieStore.get('repository') || {};
+        $rootScope.repository = $cookieStore.get("repository") || {};
         if ($rootScope.repository.loggedUser) {
-            $http.defaults.headers.common['Authorization'] = $rootScope.repository.loggedUser.authdata;
+            $http.defaults.headers.common["Authorization"] = $rootScope.repository.loggedUser.authdata;
         }
 
         $(document).ready(function () {
             $(".fancybox").fancybox({
-                openEffect: 'none',
-                closeEffect: 'none'
+                openEffect: "none",
+                closeEffect: "none"
             });
 
-            $('.fancybox-media').fancybox({
-                openEffect: 'none',
-                closeEffect: 'none',
+            $(".fancybox-media").fancybox({
+                openEffect: "none",
+                closeEffect: "none",
                 helpers: {
                     media: {}
                 }
             });
 
-            $('[data-toggle=offcanvas]').click(function () {
-                $('.row-offcanvas').toggleClass('active');
+            $("[data-toggle=offcanvas]").click(function () {
+                $(".row-offcanvas").toggleClass("active");
             });
         });
     }
 
-    isAuthenticated.$inject = ['membershipService', '$rootScope', '$location'];
+    isAuthenticated.$inject = ["membershipService", "$rootScope", "$location"];
 
     function isAuthenticated(membershipService, $rootScope, $location) {
         if (!membershipService.isUserLoggedIn()) {
             $rootScope.previousState = $location.path();
-            $location.path('/login');
+            $location.path("/login");
         }
     }
 

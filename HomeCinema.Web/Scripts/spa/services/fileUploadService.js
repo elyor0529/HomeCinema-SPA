@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.factory('fileUploadService', fileUploadService);
+    app.factory("fileUploadService", fileUploadService);
 
-    fileUploadService.$inject = ['$rootScope', '$http', '$timeout', '$upload', 'notificationService'];
+    fileUploadService.$inject = ["$rootScope", "$http", "$timeout", "$upload", "notificationService"];
 
     function fileUploadService($rootScope, $http, $timeout, $upload, notificationService) {
 
@@ -25,7 +25,7 @@
                     }).progress(function (evt) {
                     }).success(function (data, status, headers, config) {
                         // file is uploaded successfully
-                        notificationService.displaySuccess(data.FileName + ' uploaded successfully');
+                        notificationService.displaySuccess(data.FileName + " uploaded successfully");
                         callback();
                     }).error(function (data, status, headers, config) {
                         notificationService.displayError(data.Message);
@@ -37,4 +37,4 @@
         return service;
     }
 
-})(angular.module('common.core'));
+})(angular.module("common.core"));

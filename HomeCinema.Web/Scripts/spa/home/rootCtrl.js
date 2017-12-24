@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('rootCtrl', rootCtrl);
+    app.controller("rootCtrl", rootCtrl);
 
-    rootCtrl.$inject = ['$scope','$location', 'membershipService','$rootScope'];
+    rootCtrl.$inject = ["$scope","$location", "membershipService","$rootScope"];
     function rootCtrl($scope, $location, membershipService, $rootScope) {
 
         $scope.userData = {};
@@ -23,11 +23,11 @@
 
         function logout() {
             membershipService.removeCredentials();
-            $location.path('#/');
+            $location.path("#/");
             $scope.userData.displayUserInfo();
         }
 
         $scope.userData.displayUserInfo();
     }
 
-})(angular.module('homeCinema'));
+})(angular.module("homeCinema"));

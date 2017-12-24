@@ -1,15 +1,14 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using AutoMapper;
 using HomeCinema.Data.Infrastructure;
 using HomeCinema.Data.Repositories;
 using HomeCinema.Entities;
 using HomeCinema.Web.Infrastructure.Core;
 using HomeCinema.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 
 namespace HomeCinema.Web.Controllers
 {
@@ -20,8 +19,8 @@ namespace HomeCinema.Web.Controllers
         private readonly IEntityBaseRepository<Genre> _genresRepository;
 
         public GenresController(IEntityBaseRepository<Genre> genresRepository,
-             IEntityBaseRepository<Error> _errorsRepository, IUnitOfWork _unitOfWork)
-            : base(_errorsRepository, _unitOfWork)
+            IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork)
+            : base(errorsRepository, unitOfWork)
         {
             _genresRepository = genresRepository;
         }
@@ -34,9 +33,9 @@ namespace HomeCinema.Web.Controllers
                 HttpResponseMessage response = null;
                 var genres = _genresRepository.GetAll().ToList();
 
-                IEnumerable<GenreViewModel> genresVM = Mapper.Map<IEnumerable<Genre>, IEnumerable<GenreViewModel>>(genres);
+                var genresVm = Mapper.Map<IEnumerable<Genre>, IEnumerable<GenreViewModel>>(genres);
 
-                response = request.CreateResponse<IEnumerable<GenreViewModel>>(HttpStatusCode.OK, genresVM);
+                response = request.CreateResponse(HttpStatusCode.OK, genresVm);
 
                 return response;
             });

@@ -88,10 +88,6 @@
       <Name>HomeCinema.Entities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="it\MockData.resources.dll" />
-    <Content Include="uk\MockData.resources.dll" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

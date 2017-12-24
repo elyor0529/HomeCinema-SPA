@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.factory('apiService', apiService);
+    app.factory("apiService", apiService);
 
-    apiService.$inject = ['$http', '$location', 'notificationService','$rootScope'];
+    apiService.$inject = ["$http", "$location", "notificationService","$rootScope"];
 
     function apiService($http, $location, notificationService, $rootScope) {
         var service = {
@@ -16,10 +16,10 @@
                     .then(function (result) {
                         success(result);
                     }, function (error) {
-                        if (error.status == '401') {
-                            notificationService.displayError('Authentication required.');
+                        if (error.status == "401") {
+                            notificationService.displayError("Authentication required.");
                             $rootScope.previousState = $location.path();
-                            $location.path('/login');
+                            $location.path("/login");
                         }
                         else if (failure != null) {
                             failure(error);
@@ -32,10 +32,10 @@
                     .then(function (result) {
                         success(result);
                     }, function (error) {
-                        if (error.status == '401') {
-                            notificationService.displayError('Authentication required.');
+                        if (error.status == "401") {
+                            notificationService.displayError("Authentication required.");
                             $rootScope.previousState = $location.path();
-                            $location.path('/login');
+                            $location.path("/login");
                         }
                         else if (failure != null) {
                             failure(error);
@@ -46,4 +46,4 @@
         return service;
     }
 
-})(angular.module('common.core'));
+})(angular.module("common.core"));

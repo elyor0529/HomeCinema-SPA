@@ -1,12 +1,12 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('indexCtrl', indexCtrl);
+    app.controller("indexCtrl", indexCtrl);
 
-    indexCtrl.$inject = ['$scope','apiService', 'notificationService'];
+    indexCtrl.$inject = ["$scope","apiService", "notificationService"];
 
     function indexCtrl($scope, apiService, notificationService) {
-        $scope.pageClass = 'page-home';
+        $scope.pageClass = "page-home";
         $scope.loadingMovies = true;
         $scope.loadingGenres = true;
         $scope.isReadOnly = true;
@@ -15,7 +15,7 @@
         $scope.loadData = loadData;
 
         function loadData() {
-            apiService.get('/api/movies/latest', null,
+            apiService.get("/api/movies/latest", null,
                         moviesLoadCompleted,
                         moviesLoadFailed);
 
@@ -48,7 +48,7 @@
                 barRatio: 0.4,
                 xLabelAngle: 55,
                 hideHover: "auto",
-                resize: 'true'
+                resize: "true"
             });
             //.on('click', function (i, row) {
             //    $location.path('/genres/' + row.ID);
@@ -61,4 +61,4 @@
         loadData();
     }
 
-})(angular.module('homeCinema'));
+})(angular.module("homeCinema"));

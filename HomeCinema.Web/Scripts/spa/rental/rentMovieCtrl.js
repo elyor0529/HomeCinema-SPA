@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('rentMovieCtrl', rentMovieCtrl);
+    app.controller("rentMovieCtrl", rentMovieCtrl);
 
-    rentMovieCtrl.$inject = ['$scope', '$modalInstance', '$location', 'apiService', 'notificationService'];
+    rentMovieCtrl.$inject = ["$scope", "$modalInstance", "$location", "apiService", "notificationService"];
 
     function rentMovieCtrl($scope, $modalInstance, $location, apiService, notificationService) {
 
@@ -18,9 +18,9 @@
         $scope.isEnabled = false;
 
         function loadStockItems() {
-            notificationService.displayInfo('Loading available stock items for ' + $scope.movie.Title);
+            notificationService.displayInfo("Loading available stock items for " + $scope.movie.Title);
 
-            apiService.get('/api/stocks/movie/' + $scope.movie.ID, null,
+            apiService.get("/api/stocks/movie/" + $scope.movie.ID, null,
             stockItemsLoadCompleted,
             stockItemsLoadFailed);
         }
@@ -37,13 +37,13 @@
         }
 
         function rentMovie() {
-            apiService.post('/api/rentals/rent/' + $scope.selectedCustomer + '/' + $scope.selectedStockItem, null,
+            apiService.post("/api/rentals/rent/" + $scope.selectedCustomer + "/" + $scope.selectedStockItem, null,
             rentMovieSucceeded,
             rentMovieFailed);
         }
 
         function rentMovieSucceeded(response) {
-            notificationService.displaySuccess('Rental completed successfully');
+            notificationService.displaySuccess("Rental completed successfully");
             $modalInstance.close();
         }
 
@@ -75,4 +75,4 @@
         loadStockItems();
     }
 
-})(angular.module('homeCinema'));
+})(angular.module("homeCinema"));

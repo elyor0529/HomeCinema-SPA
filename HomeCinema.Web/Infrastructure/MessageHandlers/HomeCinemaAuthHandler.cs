@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using HomeCinema.Web.Infrastructure.Extensions;
-using System.Text;
-using System.Net;
 
-namespace HomeCinema.Web.MessageHandlers
+namespace HomeCinema.Web.Infrastructure.MessageHandlers
 {
     public class HomeCinemaAuthHandler : DelegatingHandler
     {

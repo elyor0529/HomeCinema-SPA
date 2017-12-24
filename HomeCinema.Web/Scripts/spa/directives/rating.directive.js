@@ -1,11 +1,11 @@
 ﻿(function(app) {
-    'use strict';
+    "use strict";
 
-    app.directive('componentRating', componentRating);
+    app.directive("componentRating", componentRating);
 
     function componentRating() {
         return {
-            restrict: 'A',
+            restrict: "A",
             link: function ($scope, $element, $attrs) {
                 $element.raty({
                     score: $attrs.componentRating,
@@ -26,4 +26,4 @@
         }
     }
 
-})(angular.module('common.ui'));
+})(angular.module("common.ui"));

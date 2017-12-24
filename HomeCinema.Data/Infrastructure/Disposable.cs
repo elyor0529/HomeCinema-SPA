@@ -1,33 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeCinema.Data.Infrastructure
 {
     public class Disposable : IDisposable
     {
-        private bool isDisposed;
-
-        ~Disposable()
-        {
-            Dispose(false);
-        }
+        private bool _isDisposed;
 
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        ~Disposable()
+        {
+            Dispose(false);
+        }
+
         private void Dispose(bool disposing)
         {
-            if (!isDisposed && disposing)
+            if (!_isDisposed && disposing)
             {
                 DisposeCore();
             }
 
-            isDisposed = true;
+            _isDisposed = true;
         }
 
         // Ovveride this to dispose custom objects

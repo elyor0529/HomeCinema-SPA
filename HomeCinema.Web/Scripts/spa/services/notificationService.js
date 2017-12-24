@@ -1,7 +1,7 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.factory('notificationService', notificationService);
+    app.factory("notificationService", notificationService);
 
     function notificationService() {
 
@@ -48,4 +48,4 @@
 
     }
 
-})(angular.module('common.core'));
+})(angular.module("common.core"));

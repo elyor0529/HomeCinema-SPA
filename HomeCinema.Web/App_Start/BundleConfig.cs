@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace HomeCinema.Web.App_Start
+namespace HomeCinema.Web
 {
-    public class BundleConfig
+    public static class BundleConfig
     {
         public static void RegisterBundles(BundleCollection bundles)
         {

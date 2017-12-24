@@ -1,21 +1,21 @@
 ﻿(function(app) {
-    'use strict';
+    "use strict";
 
-    app.directive('customPager', customPager);
+    app.directive("customPager", customPager);
 
     function customPager() {
         return {
             scope: {
-                page: '@',
-                pagesCount: '@',
-                totalCount: '@',
-                searchFunc: '&',
-                customPath: '@'
+                page: "@",
+                pagesCount: "@",
+                totalCount: "@",
+                searchFunc: "&",
+                customPath: "@"
             },
             replace: true,
-            restrict: 'E',
-            templateUrl: '/scripts/spa/layout/pager.html',
-            controller: ['$scope', function ($scope) {
+            restrict: "E",
+            templateUrl: "/scripts/spa/layout/pager.html",
+            controller: ["$scope", function ($scope) {
                 $scope.search = function (i) {
                     if ($scope.searchFunc) {
                         $scope.searchFunc({ page: i });
@@ -46,4 +46,4 @@
         }
     }
 
-})(angular.module('common.ui'));
+})(angular.module("common.ui"));

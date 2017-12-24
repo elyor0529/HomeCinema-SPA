@@ -1,9 +1,9 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('customerEditCtrl', customerEditCtrl);
+    app.controller("customerEditCtrl", customerEditCtrl);
 
-    customerEditCtrl.$inject = ['$scope', '$modalInstance','$timeout', 'apiService', 'notificationService'];
+    customerEditCtrl.$inject = ["$scope", "$modalInstance","$timeout", "apiService", "notificationService"];
 
     function customerEditCtrl($scope, $modalInstance, $timeout, apiService, notificationService) {
 
@@ -12,7 +12,7 @@
 
         $scope.openDatePicker = openDatePicker;
         $scope.dateOptions = {
-            formatYear: 'yy',
+            formatYear: "yy",
             startingDay: 1
         };
         $scope.datepicker = {};
@@ -20,14 +20,14 @@
         function updateCustomer()
         {
             console.log($scope.EditedCustomer);
-            apiService.post('/api/customers/update/', $scope.EditedCustomer,
+            apiService.post("/api/customers/update/", $scope.EditedCustomer,
             updateCustomerCompleted,
             updateCustomerLoadFailed);
         }
 
         function updateCustomerCompleted(response)
         {
-            notificationService.displaySuccess($scope.EditedCustomer.FirstName + ' ' + $scope.EditedCustomer.LastName + ' has been updated');
+            notificationService.displaySuccess($scope.EditedCustomer.FirstName + " " + $scope.EditedCustomer.LastName + " has been updated");
             $scope.EditedCustomer = {};
             $modalInstance.dismiss();
         }
@@ -51,7 +51,7 @@
             });
 
             $timeout(function () {
-                $('ul[datepicker-popup-wrap]').css('z-index', '10000');
+                $("ul[datepicker-popup-wrap]").css("z-index", "10000");
             }, 100);
 
             
@@ -59,4 +59,4 @@
 
     }
 
-})(angular.module('homeCinema'));
+})(angular.module("homeCinema"));

@@ -1,29 +1,29 @@
-﻿using AutoMapper;
-using HomeCinema.Data.Infrastructure;
-using HomeCinema.Data.Repositories;
-using HomeCinema.Entities;
-using HomeCinema.Web.Infrastructure.Core;
-using HomeCinema.Web.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using HomeCinema.Web.Infrastructure.Extensions;
+using AutoMapper;
 using HomeCinema.Data.Extensions;
+using HomeCinema.Data.Infrastructure;
+using HomeCinema.Data.Repositories;
+using HomeCinema.Entities;
+using HomeCinema.Web.Infrastructure.Core;
+using HomeCinema.Web.Infrastructure.Extensions;
+using HomeCinema.Web.Models;
 
 namespace HomeCinema.Web.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
     [RoutePrefix("api/customers")]
     public class CustomersController : ApiControllerBase
     {
         private readonly IEntityBaseRepository<Customer> _customersRepository;
 
-        public CustomersController(IEntityBaseRepository<Customer> customersRepository, 
-            IEntityBaseRepository<Error> _errorsRepository, IUnitOfWork _unitOfWork)
-            : base(_errorsRepository, _unitOfWork)
+        public CustomersController(IEntityBaseRepository<Customer> customersRepository,
+            IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork)
+            : base(errorsRepository, unitOfWork)
         {
             _customersRepository = customersRepository;
         }
@@ -38,12 +38,12 @@ namespace HomeCinema.Web.Controllers
 
                 var customers = _customersRepository.GetAll()
                     .Where(c => c.Email.ToLower().Contains(filter) ||
-                    c.FirstName.ToLower().Contains(filter) ||
-                    c.LastName.ToLower().Contains(filter)).ToList();
+                                c.FirstName.ToLower().Contains(filter) ||
+                                c.LastName.ToLower().Contains(filter)).ToList();
 
                 var customersVm = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(customers);
 
-                response = request.CreateResponse<IEnumerable<CustomerViewModel>>(HttpStatusCode.OK, customersVm);
+                response = request.CreateResponse(HttpStatusCode.OK, customersVm);
 
                 return response;
             });
@@ -57,9 +57,9 @@ namespace HomeCinema.Web.Controllers
                 HttpResponseMessage response = null;
                 var customer = _customersRepository.GetSingle(id);
 
-                CustomerViewModel customerVm = Mapper.Map<Customer, CustomerViewModel>(customer);
+                var customerVm = Mapper.Map<Customer, CustomerViewModel>(customer);
 
-                response = request.CreateResponse<CustomerViewModel>(HttpStatusCode.OK, customerVm);
+                response = request.CreateResponse(HttpStatusCode.OK, customerVm);
 
                 return response;
             });
@@ -77,7 +77,7 @@ namespace HomeCinema.Web.Controllers
                 {
                     response = request.CreateResponse(HttpStatusCode.BadRequest,
                         ModelState.Keys.SelectMany(k => ModelState[k].Errors)
-                              .Select(m => m.ErrorMessage).ToArray());
+                            .Select(m => m.ErrorMessage).ToArray());
                 }
                 else
                 {
@@ -85,12 +85,12 @@ namespace HomeCinema.Web.Controllers
                     {
                         ModelState.AddModelError("Invalid user", "Email or Identity Card number already exists");
                         response = request.CreateResponse(HttpStatusCode.BadRequest,
-                        ModelState.Keys.SelectMany(k => ModelState[k].Errors)
-                              .Select(m => m.ErrorMessage).ToArray());
+                            ModelState.Keys.SelectMany(k => ModelState[k].Errors)
+                                .Select(m => m.ErrorMessage).ToArray());
                     }
                     else
                     {
-                        Customer newCustomer = new Customer();
+                        var newCustomer = new Customer();
                         newCustomer.UpdateCustomer(customer);
                         _customersRepository.Add(newCustomer);
 
@@ -98,7 +98,7 @@ namespace HomeCinema.Web.Controllers
 
                         // Update view model
                         customer = Mapper.Map<Customer, CustomerViewModel>(newCustomer);
-                        response = request.CreateResponse<CustomerViewModel>(HttpStatusCode.Created, customer);
+                        response = request.CreateResponse(HttpStatusCode.Created, customer);
                     }
                 }
 
@@ -118,11 +118,11 @@ namespace HomeCinema.Web.Controllers
                 {
                     response = request.CreateResponse(HttpStatusCode.BadRequest,
                         ModelState.Keys.SelectMany(k => ModelState[k].Errors)
-                              .Select(m => m.ErrorMessage).ToArray());
+                            .Select(m => m.ErrorMessage).ToArray());
                 }
                 else
                 {
-                    Customer _customer = _customersRepository.GetSingle(customer.ID);
+                    var _customer = _customersRepository.GetSingle(customer.ID);
                     _customer.UpdateCustomer(customer);
 
                     _unitOfWork.Commit();
@@ -138,55 +138,55 @@ namespace HomeCinema.Web.Controllers
         [Route("search/{page:int=0}/{pageSize=4}/{filter?}")]
         public HttpResponseMessage Search(HttpRequestMessage request, int? page, int? pageSize, string filter = null)
         {
-            int currentPage = page.Value;
-            int currentPageSize = pageSize.Value;
+            var currentPage = page.Value;
+            var currentPageSize = pageSize.Value;
 
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
                 List<Customer> customers = null;
-                int totalCustomers = new int();
+                var totalCustomers = new int();
 
                 if (!string.IsNullOrEmpty(filter))
                 {
                     filter = filter.Trim().ToLower();
 
                     customers = _customersRepository.FindBy(c => c.LastName.ToLower().Contains(filter) ||
-                            c.IdentityCard.ToLower().Contains(filter) ||
-                            c.FirstName.ToLower().Contains(filter))
+                                                                 c.IdentityCard.ToLower().Contains(filter) ||
+                                                                 c.FirstName.ToLower().Contains(filter))
                         .OrderBy(c => c.ID)
-                        .Skip(currentPage * currentPageSize)
+                        .Skip(currentPage*currentPageSize)
                         .Take(currentPageSize)
                         .ToList();
 
                     totalCustomers = _customersRepository.GetAll()
                         .Where(c => c.LastName.ToLower().Contains(filter) ||
-                            c.IdentityCard.ToLower().Contains(filter) ||
-                            c.FirstName.ToLower().Contains(filter))
+                                    c.IdentityCard.ToLower().Contains(filter) ||
+                                    c.FirstName.ToLower().Contains(filter))
                         .Count();
                 }
                 else
                 {
                     customers = _customersRepository.GetAll()
                         .OrderBy(c => c.ID)
-                        .Skip(currentPage * currentPageSize)
+                        .Skip(currentPage*currentPageSize)
                         .Take(currentPageSize)
-                    .ToList();
+                        .ToList();
 
                     totalCustomers = _customersRepository.GetAll().Count();
                 }
 
-                IEnumerable<CustomerViewModel> customersVM = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(customers);
+                var customersVm = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(customers);
 
-                PaginationSet<CustomerViewModel> pagedSet = new PaginationSet<CustomerViewModel>()
+                var pagedSet = new PaginationSet<CustomerViewModel>
                 {
                     Page = currentPage,
                     TotalCount = totalCustomers,
-                    TotalPages = (int)Math.Ceiling((decimal)totalCustomers / currentPageSize),
-                    Items = customersVM
+                    TotalPages = (int) Math.Ceiling((decimal) totalCustomers/currentPageSize),
+                    Items = customersVm
                 };
 
-                response = request.CreateResponse<PaginationSet<CustomerViewModel>>(HttpStatusCode.OK, pagedSet);
+                response = request.CreateResponse(HttpStatusCode.OK, pagedSet);
 
                 return response;
             });

@@ -1,13 +1,13 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('movieAddCtrl', movieAddCtrl);
+    app.controller("movieAddCtrl", movieAddCtrl);
 
-    movieAddCtrl.$inject = ['$scope', '$location', '$routeParams', 'apiService', 'notificationService', 'fileUploadService'];
+    movieAddCtrl.$inject = ["$scope", "$location", "$routeParams", "apiService", "notificationService", "fileUploadService"];
 
     function movieAddCtrl($scope, $location, $routeParams, apiService, notificationService, fileUploadService) {
 
-        $scope.pageClass = 'page-movies';
+        $scope.pageClass = "page-movies";
         $scope.movie = { GenreId: 1, Rating: 1, NumberOfStocks: 1 };
 
         $scope.genres = [];
@@ -18,7 +18,7 @@
         $scope.changeNumberOfStocks = changeNumberOfStocks;
 
         $scope.dateOptions = {
-            formatYear: 'yy',
+            formatYear: "yy",
             startingDay: 1
         };
         $scope.datepicker = {};
@@ -26,7 +26,7 @@
         var movieImage = null;
 
         function loadGenres() {
-            apiService.get('/api/genres/', null,
+            apiService.get("/api/genres/", null,
             genresLoadCompleted,
             genresLoadFailed);
         }
@@ -44,7 +44,7 @@
         }
 
         function AddMovieModel() {
-            apiService.post('/api/movies/add', $scope.movie,
+            apiService.post("/api/movies/add", $scope.movie,
             addMovieSucceded,
             addMovieFailed);
         }
@@ -54,7 +54,7 @@
         }
 
         function addMovieSucceded(response) {
-            notificationService.displaySuccess($scope.movie.Title + ' has been submitted to Home Cinema');
+            notificationService.displaySuccess($scope.movie.Title + " has been submitted to Home Cinema");
             $scope.movie = response.data;
 
             if (movieImage) {
@@ -77,16 +77,16 @@
         };
 
         function redirectToEdit() {
-            $location.url('movies/edit/' + $scope.movie.ID);
+            $location.url("movies/edit/" + $scope.movie.ID);
         }
 
         function changeNumberOfStocks($vent)
         {
-            var btn = $('#btnSetStocks'),
-            oldValue = $('#inputStocks').val().trim(),
+            var btn = $("#btnSetStocks"),
+            oldValue = $("#inputStocks").val().trim(),
             newVal = 0;
 
-            if (btn.attr('data-dir') == 'up') {
+            if (btn.attr("data-dir") == "up") {
                 newVal = parseInt(oldValue) + 1;
             } else {
                 if (oldValue > 1) {
@@ -95,7 +95,7 @@
                     newVal = 1;
                 }
             }
-            $('#inputStocks').val(newVal);
+            $("#inputStocks").val(newVal);
             $scope.movie.NumberOfStocks = newVal;
             console.log($scope.movie);
         }
@@ -103,4 +103,4 @@
         loadGenres();
     }
 
-})(angular.module('homeCinema'));
+})(angular.module("homeCinema"));

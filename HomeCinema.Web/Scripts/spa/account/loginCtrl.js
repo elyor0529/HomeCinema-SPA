@@ -1,12 +1,12 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('loginCtrl', loginCtrl);
+    app.controller("loginCtrl", loginCtrl);
 
-    loginCtrl.$inject = ['$scope', 'membershipService', 'notificationService','$rootScope', '$location'];
+    loginCtrl.$inject = ["$scope", "membershipService", "notificationService","$rootScope", "$location"];
 
     function loginCtrl($scope, membershipService, notificationService, $rootScope, $location) {
-        $scope.pageClass = 'page-login';
+        $scope.pageClass = "page-login";
         $scope.login = login;
         $scope.user = {};
 
@@ -17,17 +17,17 @@
         function loginCompleted(result) {
             if (result.data.success) {
                 membershipService.saveCredentials($scope.user);
-                notificationService.displaySuccess('Hello ' + $scope.user.username);
+                notificationService.displaySuccess("Hello " + $scope.user.username);
                 $scope.userData.displayUserInfo();
                 if ($rootScope.previousState)
                     $location.path($rootScope.previousState);
                 else
-                    $location.path('/');
+                    $location.path("/");
             }
             else {
-                notificationService.displayError('Login failed. Try again.');
+                notificationService.displayError("Login failed. Try again.");
             }
         }
     }
 
-})(angular.module('common.core'));
+})(angular.module("common.core"));

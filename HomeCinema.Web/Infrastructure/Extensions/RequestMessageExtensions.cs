@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http.Dependencies;
+using HomeCinema.Services.Abstract;
 
 namespace HomeCinema.Web.Infrastructure.Extensions
 {
