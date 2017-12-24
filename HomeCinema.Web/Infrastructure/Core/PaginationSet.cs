@@ -13,7 +13,7 @@ namespace HomeCinema.Web.Infrastructure.Core
         {
             get
             {
-                return (null != this.Items) ? this.Items.Count() : 0;
+                return Items?.Count() ?? 0;
             }
         }
 

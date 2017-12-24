@@ -1,15 +1,11 @@
-﻿using HomeCinema.Data.Infrastructure;
-using HomeCinema.Data.Repositories;
-using HomeCinema.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
-using HomeCinema.Web.Infrastructure.Extensions;
+using HomeCinema.Data.Infrastructure;
+using HomeCinema.Data.Repositories;
+using HomeCinema.Entities;
 
 namespace HomeCinema.Web.Infrastructure.Core
 {
@@ -24,7 +20,8 @@ namespace HomeCinema.Web.Infrastructure.Core
             _unitOfWork = unitOfWork;
         }
 
-        public ApiControllerBase(IDataRepositoryFactory dataRepositoryFactory, IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork)
+        public ApiControllerBase(IDataRepositoryFactory dataRepositoryFactory,
+            IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork)
         {
             _errorsRepository = errorsRepository;
             _unitOfWork = unitOfWork;
@@ -51,11 +48,12 @@ namespace HomeCinema.Web.Infrastructure.Core
 
             return response;
         }
+
         private void LogError(Exception ex)
         {
             try
             {
-                Error _error = new Error()
+                var _error = new Error
                 {
                     Message = ex.Message,
                     StackTrace = ex.StackTrace,
@@ -65,7 +63,9 @@ namespace HomeCinema.Web.Infrastructure.Core
                 _errorsRepository.Add(_error);
                 _unitOfWork.Commit();
             }
-            catch { }
+            catch
+            {
+            }
         }
     }
 }

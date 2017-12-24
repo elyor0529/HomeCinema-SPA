@@ -13,8 +13,7 @@ namespace HomeCinema.Web.Infrastructure.Core
 
         public override string GetLocalFileName(HttpContentHeaders headers)
         {
-            if (headers != null &&
-                headers.ContentDisposition != null)
+            if (headers?.ContentDisposition != null)
             {
                 return headers
                     .ContentDisposition

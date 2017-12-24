@@ -21,11 +21,9 @@ namespace HomeCinema.Data.Extensions
         public static string GetCustomerFullName(this IEntityBaseRepository<Customer> customersRepository,
             int customerId)
         {
-            var customerName = string.Empty;
 
             var customer = customersRepository.GetSingle(customerId);
-
-            customerName = customer.FirstName + " " + customer.LastName;
+            var customerName = customer.FirstName + " " + customer.LastName;
 
             return customerName;
         }

@@ -10,20 +10,16 @@ namespace HomeCinema.Data.Extensions
         public static IEnumerable<Stock> GetAvailableItems(this IEntityBaseRepository<Stock> stocksRepository,
             int movieId)
         {
-            IEnumerable<Stock> availableItems;
-
-            availableItems = stocksRepository.GetAll().Where(s => s.MovieId == movieId && s.IsAvailable);
+            var availableItems = stocksRepository.GetAll().Where(s => s.MovieId == movieId && s.IsAvailable);
 
             return availableItems;
         }
 
-        //public static IEnumerable<Stock> GetAllItems(this IEntityBaseRepository<Stock> stocksRepository, int movieId)
-        //{
-        //    IEnumerable<Stock> _allItems;
+        public static IEnumerable<Stock> GetAllItems(this IEntityBaseRepository<Stock> stocksRepository, int movieId)
+        {
+            var allItems = stocksRepository.GetAll().Where(s => s.MovieId == movieId);
 
-        //    _allItems = stocksRepository.GetAll().Where(s => s.MovieId == movieId);
-
-        //    return _allItems;
-        //}
+            return allItems;
+        }
     }
 }
